@@ -342,8 +342,10 @@ class BaremetalMechanismDriver(mech_agent.SimpleAgentMechanismDriverBase):
         call context.set_binding() with appropriate values and then
         return True. Otherwise, it must return False.
         """
+        port = context.current
+        LOG.debug("Baremetal:try_to_bind_segment_for_agent: port %s", port['id'])
         if self.check_segment_for_agent(segment, agent):
-            port = context.current
+            LOG.debug("Baremetal:try_to_bind_segment_for_agent: set_binding: port %s", port['id'])
             provisioning_blocks.add_provisioning_component(
                 context._plugin_context, port['id'], resources.PORT,
                 BAREMETAL_DRV_ENTITY)
@@ -352,4 +354,5 @@ class BaremetalMechanismDriver(mech_agent.SimpleAgentMechanismDriverBase):
                                 self.get_vif_details(context, agent, segment))
             return True
         else:
+            LOG.debug("Baremetal:try_to_bind_segment_for_agent: not for this agent: port %s", port['id'])
             return False

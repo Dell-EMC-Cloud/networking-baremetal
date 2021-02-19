@@ -8,7 +8,7 @@
 
 # Save trace setting
 _XTRACE_NETWORKING_BAREMETAL=$(set +o | grep xtrace)
-set +o xtrace
+set -o xtrace
 
 # Defaults
 # --------
